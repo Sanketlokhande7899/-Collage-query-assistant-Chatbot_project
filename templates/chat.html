@@ -8,9 +8,6 @@ AI Chatbot | AI College Assistant
 
 <style>
 
-/* ================================
-   CHAT PAGE
-================================ */
 
 .chat-page{
     min-height:85vh;
@@ -30,9 +27,7 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   CHAT CONTAINER
-================================ */
+
 
 .chat-container{
     max-width:950px;
@@ -40,9 +35,6 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   CHAT CARD
-================================ */
 
 .chat-card{
     background:rgba(255,255,255,.97);
@@ -76,9 +68,7 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   CHAT HEADER
-================================ */
+
 
 .chat-header{
 
@@ -160,9 +150,6 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   ONLINE STATUS
-================================ */
 
 .ai-status{
 
@@ -201,9 +188,7 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   CHAT BODY
-================================ */
+
 
 .chat-body{
 
@@ -211,9 +196,7 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   WELCOME
-================================ */
+
 
 .welcome{
 
@@ -258,10 +241,6 @@ AI Chatbot | AI College Assistant
     color:#2563eb;
 }
 
-
-/* ================================
-   CHAT INPUT
-================================ */
 
 .chat-form{
 
@@ -372,9 +351,6 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   TYPING
-================================ */
 
 .typing{
 
@@ -434,10 +410,6 @@ AI Chatbot | AI College Assistant
     animation-delay:.4s;
 }
 
-
-/* ================================
-   MICROPHONE BUTTON
-================================ */
 
 .mic-button{
 
@@ -511,10 +483,6 @@ AI Chatbot | AI College Assistant
 
 }
 
-
-/* ================================
-   ANSWER
-================================ */
 
 .answer-card{
 
@@ -649,10 +617,6 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   BOTTOM BUTTONS
-================================ */
-
 .bottom-buttons{
 
     display:flex;
@@ -712,10 +676,6 @@ AI Chatbot | AI College Assistant
     background:#f0fdf4;
 }
 
-
-/* ================================
-   LOGIN REQUIRED
-================================ */
 
 .login-box{
 
@@ -818,9 +778,7 @@ AI Chatbot | AI College Assistant
 }
 
 
-/* ================================
-   MOBILE
-================================ */
+
 
 @media(max-width:600px){
 
@@ -890,10 +848,6 @@ AI Chatbot | AI College Assistant
 <div class="chat-card">
 
 
-    <!-- ============================
-         HEADER
-    ============================= -->
-
     <div class="chat-header">
 
         <div class="chat-header-content">
@@ -937,15 +891,9 @@ AI Chatbot | AI College Assistant
     </div>
 
 
-
-    <!-- ============================
-         BODY
-    ============================= -->
-
     <div class="chat-body">
 
 
-        <!-- WELCOME -->
 
         <div class="welcome">
 
@@ -969,7 +917,7 @@ AI Chatbot | AI College Assistant
 
 
 
-        <!-- CHAT FORM -->
+        
 
         <form
             method="POST"
@@ -989,7 +937,6 @@ AI Chatbot | AI College Assistant
                 required>
 
 
-            <!-- MIC BUTTON -->
             <button
                 type="button"
                 class="mic-button"
@@ -1017,7 +964,6 @@ AI Chatbot | AI College Assistant
 
 
 
-        <!-- TYPING -->
 
         <div id="typing" class="typing">
 
@@ -1034,10 +980,6 @@ AI Chatbot | AI College Assistant
         </div>
 
 
-
-        <!-- ============================
-             AI RESPONSE
-        ============================= -->
 
         {% if response %}
 
@@ -1098,10 +1040,6 @@ AI Chatbot | AI College Assistant
             marked.parse(responseText);
 
 
-        /* ================================
-           READ AI RESPONSE ALOUD
-        ================================ */
-
         if(
             responseText &&
             "speechSynthesis" in window
@@ -1132,9 +1070,7 @@ AI Chatbot | AI College Assistant
 
 
 
-        <!-- ============================
-             BUTTONS
-        ============================= -->
+        
 
         <div class="bottom-buttons">
 
@@ -1172,7 +1108,7 @@ AI Chatbot | AI College Assistant
 {% else %}
 
 
-<!-- LOGIN REQUIRED -->
+
 
 <div class="login-box">
 
@@ -1223,9 +1159,7 @@ AI Chatbot | AI College Assistant
 
 <script>
 
-/* ================================
-   CHAT JAVASCRIPT
-================================ */
+
 
 const form =
     document.getElementById("chatForm");
@@ -1243,9 +1177,7 @@ const micButton =
     document.getElementById("micButton");
 
 
-/* ================================
-   VOICE INPUT
-================================ */
+
 
 if(micButton && input){
 

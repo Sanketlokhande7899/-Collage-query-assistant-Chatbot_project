@@ -8,9 +8,7 @@ Chat History | AI College Assistant
 
 <style>
 
-/* ================================
-   PAGE
-================================ */
+
 
 .history-page{
     min-height:85vh;
@@ -30,9 +28,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   CONTAINER
-================================ */
+
 
 .history-container{
     max-width:950px;
@@ -144,9 +140,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   NEW CHAT BUTTON
-================================ */
+
 
 .new-chat-btn{
 
@@ -240,9 +234,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   DATE
-================================ */
+
 
 .date{
 
@@ -264,9 +256,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   MESSAGE BOX
-================================ */
+
 
 .message-box{
 
@@ -304,9 +294,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   MESSAGE HEADER
-================================ */
+
 
 .message-header{
 
@@ -374,9 +362,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   MESSAGE TEXT
-================================ */
+
 
 .message-text{
 
@@ -394,9 +380,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   EMPTY HISTORY
-================================ */
+
 
 .empty-history{
 
@@ -499,9 +483,7 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   BOTTOM ACTIONS
-================================ */
+
 
 .bottom-actions{
 
@@ -571,7 +553,7 @@ Chat History | AI College Assistant
 }
 
 
-/* LOGOUT */
+
 
 .logout-btn{
 
@@ -589,9 +571,6 @@ Chat History | AI College Assistant
 }
 
 
-/* ================================
-   MOBILE
-================================ */
 
 @media(max-width:600px){
 
@@ -650,9 +629,7 @@ Chat History | AI College Assistant
 <div class="history-container">
 
 
-    <!-- ============================
-         HEADER
-    ============================= -->
+   
 
     <div class="history-header">
 
@@ -702,17 +679,13 @@ Chat History | AI College Assistant
 
 
 
-    <!-- ============================
-         CHAT HISTORY
-    ============================= -->
-
+  
     {% for chat in chats %}
 
 
     <div class="chat-card">
 
 
-        <!-- DATE -->
 
         <div class="date">
 
@@ -724,7 +697,7 @@ Chat History | AI College Assistant
 
 
 
-        <!-- QUESTION -->
+    
 
         <div class="message-box question">
 
@@ -760,7 +733,6 @@ Chat History | AI College Assistant
 
 
 
-        <!-- AI ANSWER -->
 
         <div class="message-box answer">
 
@@ -801,9 +773,6 @@ Chat History | AI College Assistant
     {% empty %}
 
 
-    <!-- ============================
-         EMPTY STATE
-    ============================= -->
 
     <div class="empty-history">
 
@@ -846,11 +815,6 @@ Chat History | AI College Assistant
 
     {% endfor %}
 
-
-
-    <!-- ============================
-         BOTTOM ACTIONS
-    ============================= -->
 
     <div class="bottom-actions">
 

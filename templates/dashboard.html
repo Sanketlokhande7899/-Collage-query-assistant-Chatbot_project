@@ -19,9 +19,7 @@ Student Dashboard | College Query AI
 
 <style>
 
-    /* ================================
-       DASHBOARD MAIN STYLE
-    ================================= */
+  
 
     .student-dashboard {
         min-height: calc(100vh - 70px);
@@ -60,10 +58,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       DASHBOARD CONTAINER
-    ================================= */
-
+    
     .dashboard-wrapper {
         max-width: 1280px;
         margin: auto;
@@ -71,9 +66,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       WELCOME SECTION
-    ================================= */
+   
 
     .welcome-section {
         display: flex;
@@ -145,9 +138,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       SECTION TITLE
-    ================================= */
+  
 
     .section-title {
         margin-bottom: 18px;
@@ -167,9 +158,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       STATISTICS GRID
-    ================================= */
+  
 
     .stats-grid {
         display: grid;
@@ -183,9 +172,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       STAT CARD
-    ================================= */
+    
 
     .stat-card {
         text-decoration: none;
@@ -250,7 +237,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* Different icon backgrounds */
+    
 
     .profile-icon {
         background: #d9ecff;
@@ -313,9 +300,6 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       ACTION SECTION
-    ================================= */
 
     .action-section {
         background: #00193c;
@@ -429,10 +413,6 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       QUICK ACCESS
-    ================================= */
-
     .quick-grid {
         display: grid;
 
@@ -525,9 +505,7 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       FOOTER
-    ================================= */
+
 
     .dashboard-footer {
         border-top: 1px solid #dfe5ef;
@@ -566,9 +544,6 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       TABLET
-    ================================= */
 
     @media (max-width: 1000px) {
 
@@ -585,9 +560,6 @@ Student Dashboard | College Query AI
     }
 
 
-    /* ================================
-       MOBILE
-    ================================= */
 
     @media (max-width: 700px) {
 
@@ -681,9 +653,6 @@ Student Dashboard | College Query AI
     <div class="dashboard-wrapper">
 
 
-        <!-- =====================================
-             WELCOME SECTION
-        ====================================== -->
 
         <div class="welcome-section">
 
@@ -714,10 +683,6 @@ Student Dashboard | College Query AI
 
 
 
-        <!-- =====================================
-             STATISTICS TITLE
-        ====================================== -->
-
         <div class="section-title">
 
             <h2>
@@ -731,10 +696,6 @@ Student Dashboard | College Query AI
         </div>
 
 
-
-        <!-- =====================================
-             STATISTICS CARDS
-        ====================================== -->
 
         <div class="stats-grid">
 
@@ -773,8 +734,6 @@ Student Dashboard | College Query AI
 
 
 
-            <!-- MY CHATS -->
-
             <a href="{% url 'chat' %}"
                class="stat-card">
 
@@ -811,7 +770,6 @@ Student Dashboard | College Query AI
 
 
 
-            <!-- CHAT HISTORY -->
 
             <a href="{% url 'chat_history' %}"
                class="stat-card">
@@ -845,7 +803,7 @@ Student Dashboard | College Query AI
 
 
 
-            <!-- TODAY'S CHATS -->
+          
 
             <a href="{% url 'today_chats' %}"
                class="stat-card">
@@ -886,10 +844,7 @@ Student Dashboard | College Query AI
 
 
 
-        <!-- =====================================
-             MAIN ACTION SECTION
-        ====================================== -->
-
+   
         <div class="action-section">
 
 
@@ -939,10 +894,7 @@ Student Dashboard | College Query AI
 
 
 
-        <!-- =====================================
-             QUICK ACCESS
-        ====================================== -->
-
+      
         <div class="section-title">
 
             <h2>
@@ -959,7 +911,6 @@ Student Dashboard | College Query AI
         <div class="quick-grid">
 
 
-            <!-- PROFILE -->
 
             <a href="{% url 'profile' %}"
                class="quick-card">
@@ -992,7 +943,7 @@ Student Dashboard | College Query AI
 
 
 
-            <!-- NEW CHAT -->
+       
 
             <a href="{% url 'chat' %}"
                class="quick-card">
@@ -1025,8 +976,6 @@ Student Dashboard | College Query AI
 
 
 
-            <!-- HISTORY -->
-
             <a href="{% url 'chat_history' %}"
                class="quick-card">
 
@@ -1055,9 +1004,7 @@ Student Dashboard | College Query AI
                 </span>
             </a>
         </div>
-        <!-- =====================================
-             FOOTER
-        ====================================== -->
+
         <div class="dashboard-footer">
             <span>
                 © 2026 College Query AI
