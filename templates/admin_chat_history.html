@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Chat History
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.chat-history-container {
+    max-width: 1250px;
+    margin: 35px auto;
+}
+
+/* Header */
+
+.chat-history-header {
+    background: linear-gradient(135deg, #111827, #4c1d95);
+    color: white;
+    padding: 28px 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.chat-history-header h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.chat-history-header p {
+    margin: 6px 0 0;
+    color: #d1d5db;
+}
+
+
+/* Table Card */
+
+.chat-table-card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+
+    box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+}
+
+
+/* Table */
+
+.chat-table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.chat-table thead {
+    background: #111827;
+    color: white;
+}
+
+.chat-table th {
+    padding: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.chat-table td {
+    padding: 15px;
+}
+
+.chat-table tbody tr {
+    transition: 0.2s;
+}
+
+.chat-table tbody tr:hover {
+    background-color: #faf7ff;
+}
+
+
+/* User */
+
+.user-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: #ede9fe;
+    color: #5b21b6;
+
+    padding: 7px 12px;
+    border-radius: 20px;
+
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+/* Question */
+
+.question-text {
+    color: #1f2937;
+    font-weight: 500;
+    min-width: 250px;
+}
+
+
+/* Answer */
+
+.answer-text {
+    color: #4b5563;
+    line-height: 1.5;
+    min-width: 300px;
+}
+
+
+/* Date */
+
+.chat-date {
+    color: #6b7280;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+/* Empty */
+
+.no-chats {
+    text-align: center;
+    padding: 60px 20px !important;
+    color: #777;
+}
+
+.no-chats-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .chat-history-header {
+        padding: 22px;
+    }
+
+    .chat-history-header h2 {
+        font-size: 22px;
+    }
+
+}
+
+</style>
+
+
+<div class="container chat-history-container">
+
+    <!-- Header -->
+
+    <div class="chat-history-header">
+
+        <h2>
+
+            <i class="bi bi-chat-dots-fill"></i>
+
+            All Users Chat History
+
+        </h2>
+
+        <p>
+            View conversations between users and the AI assistant.
+        </p>
+
+    </div>
+
+
+    <!-- Chat Table -->
+
+    <div class="chat-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered chat-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="15%">
+                            <i class="bi bi-person-fill"></i>
+                            User
+                        </th>
+
+                        <th width="30%">
+                            <i class="bi bi-chat-left-text"></i>
+                            Question
+                        </th>
+
+                        <th width="40%">
+                            <i class="bi bi-robot"></i>
+                            Answer
+                        </th>
+
+                        <th width="15%">
+                            <i class="bi bi-calendar3"></i>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for chat in chats %}
+
+                    <tr>
+
+                        <!-- User -->
+
+                        <td>
+
+                            <span class="user-name">
+
+                                <i class="bi bi-person-circle"></i>
+
+                                {{ chat.conversation.student.username }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Question -->
+
+                        <td>
+
+                            <div class="question-text">
+
+                                {{ chat.user_message }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Answer -->
+
+                        <td>
+
+                            <div class="answer-text">
+
+                                {{ chat.bot_response }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- Date -->
+
+                        <td>
+
+                            <span class="chat-date">
+
+                                {{ chat.created_at|date:"d M Y, h:i A" }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4" class="no-chats">
+
+                            <div class="no-chats-icon">
+                                💬
+                            </div>
+
+                            <h5>
+                                No Chat History
+                            </h5>
+
+                            <p class="mb-0">
+                                No conversations have been recorded yet.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

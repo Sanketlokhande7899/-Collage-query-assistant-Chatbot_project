@@ -1,0 +1,1392 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Chatbot | AI College Assistant
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================================
+   CHAT PAGE
+================================ */
+
+.chat-page{
+    min-height:85vh;
+    padding:30px 15px;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(37,99,235,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(124,58,237,.12),
+            transparent 30%
+        );
+}
+
+
+/* ================================
+   CHAT CONTAINER
+================================ */
+
+.chat-container{
+    max-width:950px;
+    margin:auto;
+}
+
+
+/* ================================
+   CHAT CARD
+================================ */
+
+.chat-card{
+    background:rgba(255,255,255,.97);
+
+    border:1px solid #e5e7eb;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15,23,42,.14);
+
+    animation:chatIn .6s ease;
+}
+
+
+@keyframes chatIn{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* ================================
+   CHAT HEADER
+================================ */
+
+.chat-header{
+
+    padding:28px 30px;
+
+    color:white;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,255,255,.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #2563eb,
+            #7c3aed
+        );
+}
+
+
+.chat-header-content{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+
+.ai-icon{
+
+    width:58px;
+    height:58px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:18px;
+
+    font-size:27px;
+
+    background:
+        rgba(255,255,255,.15);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.15);
+}
+
+
+.chat-title{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:800;
+}
+
+
+.chat-subtitle{
+
+    margin:4px 0 0;
+
+    color:#dbeafe;
+
+    font-size:12px;
+}
+
+
+/* ================================
+   ONLINE STATUS
+================================ */
+
+.ai-status{
+
+    margin-left:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:7px 12px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+
+.status-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 8px #4ade80;
+}
+
+
+/* ================================
+   CHAT BODY
+================================ */
+
+.chat-body{
+
+    padding:30px;
+}
+
+
+/* ================================
+   WELCOME
+================================ */
+
+.welcome{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px 16px;
+
+    margin-bottom:22px;
+
+    border-radius:13px;
+
+    color:#1e40af;
+
+    background:#eff6ff;
+
+    border:
+        1px solid
+        #dbeafe;
+
+    font-size:13px;
+}
+
+
+.welcome-icon{
+
+    width:32px;
+    height:32px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:#dbeafe;
+
+    color:#2563eb;
+}
+
+
+/* ================================
+   CHAT INPUT
+================================ */
+
+.chat-form{
+
+    display:flex;
+
+    gap:10px;
+
+    padding:7px;
+
+    background:#f8fafc;
+
+    border:
+        1px solid
+        #e2e8f0;
+
+    border-radius:16px;
+
+    transition:.25s;
+}
+
+
+.chat-form:focus-within{
+
+    border-color:#6366f1;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(99,102,241,.08);
+
+    background:white;
+}
+
+
+.chat-input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    padding:
+        0 12px;
+
+    height:46px;
+
+    font-size:13px;
+
+    color:#0f172a;
+}
+
+
+.chat-input::placeholder{
+
+    color:#94a3b8;
+}
+
+
+.ask-btn{
+
+    height:46px;
+
+    padding:
+        0 24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 7px 18px
+        rgba(37,99,235,.25);
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+
+.ask-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 24px
+        rgba(37,99,235,.35);
+}
+
+
+.ask-btn:active{
+
+    transform:translateY(0);
+}
+
+
+/* ================================
+   TYPING
+================================ */
+
+.typing{
+
+    display:none;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:18px;
+
+    padding:12px 15px;
+
+    width:max-content;
+
+    border-radius:12px;
+
+    color:#475569;
+
+    background:#f8fafc;
+
+    font-size:11px;
+
+    font-weight:600;
+}
+
+
+.typing-dots{
+
+    display:flex;
+
+    gap:4px;
+}
+
+
+.typing-dots span{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#6366f1;
+
+    animation:typing 1.2s infinite;
+}
+
+
+.typing-dots span:nth-child(2){
+
+    animation-delay:.2s;
+}
+
+
+.typing-dots span:nth-child(3){
+
+    animation-delay:.4s;
+}
+
+
+/* ================================
+   MICROPHONE BUTTON
+================================ */
+
+.mic-button{
+
+    height:46px;
+
+    width:46px;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:#6366f1;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    transition:.25s;
+}
+
+
+.mic-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(99,102,241,.25);
+}
+
+
+.mic-button.listening{
+
+    background:#dc2626;
+
+    animation:micPulse 1s infinite;
+}
+
+
+@keyframes micPulse{
+
+    0%{
+        box-shadow:0 0 0 0 rgba(220,38,38,.4);
+    }
+
+    70%{
+        box-shadow:0 0 0 10px rgba(220,38,38,0);
+    }
+
+    100%{
+        box-shadow:0 0 0 0 rgba(220,38,38,0);
+    }
+}
+
+
+@keyframes typing{
+
+    0%,60%,100%{
+        transform:translateY(0);
+        opacity:.4;
+    }
+
+    30%{
+        transform:translateY(-5px);
+        opacity:1;
+    }
+
+}
+
+
+/* ================================
+   ANSWER
+================================ */
+
+.answer-card{
+
+    margin-top:25px;
+
+    padding:22px;
+
+    border-radius:16px;
+
+    background:#f8fafc;
+
+    border:
+        1px solid
+        #e2e8f0;
+
+    border-left:
+        4px solid
+        #4f46e5;
+
+    animation:answerIn .5s ease;
+}
+
+
+@keyframes answerIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+.answer-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+
+.answer-icon{
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    color:#4f46e5;
+
+    background:#eef2ff;
+}
+
+
+.answer-title{
+
+    margin:0;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#0f172a;
+}
+
+
+.answer-label{
+
+    font-size:10px;
+
+    color:#94a3b8;
+}
+
+
+.answer-content{
+
+    color:#334155;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+
+/* MARKDOWN */
+
+.answer-content h1,
+.answer-content h2,
+.answer-content h3{
+
+    color:#0f172a;
+
+    margin-top:15px;
+}
+
+
+.answer-content strong{
+
+    color:#1e40af;
+}
+
+
+.answer-content ul{
+
+    padding-left:20px;
+}
+
+
+.answer-content li{
+
+    margin-bottom:5px;
+}
+
+
+/* ================================
+   BOTTOM BUTTONS
+================================ */
+
+.bottom-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+
+.bottom-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    height:42px;
+
+    padding:
+        0 17px;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+
+.bottom-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+.dashboard-btn{
+
+    color:#2563eb;
+
+    background:#eff6ff;
+}
+
+
+.history-btn{
+
+    color:#15803d;
+
+    background:#f0fdf4;
+}
+
+
+/* ================================
+   LOGIN REQUIRED
+================================ */
+
+.login-box{
+
+    max-width:500px;
+
+    margin:70px auto;
+
+    padding:45px 30px;
+
+    text-align:center;
+
+    background:white;
+
+    border-radius:24px;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15,23,42,.12);
+
+    animation:chatIn .6s ease;
+}
+
+
+.login-icon{
+
+    width:70px;
+    height:70px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    font-size:28px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+}
+
+
+.login-box h2{
+
+    margin-top:18px;
+
+    color:#0f172a;
+
+    font-weight:800;
+}
+
+
+.login-box p{
+
+    color:#64748b;
+
+    font-size:13px;
+
+    margin-bottom:22px;
+}
+
+
+.login-button{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        11px 25px;
+
+    border-radius:12px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+    .chat-body{
+
+        padding:20px 15px;
+
+    }
+
+    .chat-header{
+
+        padding:22px 18px;
+
+    }
+
+    .chat-title{
+
+        font-size:20px;
+
+    }
+
+    .ai-status{
+
+        display:none;
+
+    }
+
+    .chat-form{
+
+        flex-direction:column;
+
+        padding:10px;
+
+    }
+
+    .ask-btn{
+
+        width:100%;
+
+    }
+
+    .bottom-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .bottom-btn{
+
+        justify-content:center;
+
+    }
+
+}
+
+</style>
+
+
+<div class="chat-page">
+
+<div class="chat-container">
+
+
+{% if user.is_authenticated %}
+
+
+<div class="chat-card">
+
+
+    <!-- ============================
+         HEADER
+    ============================= -->
+
+    <div class="chat-header">
+
+        <div class="chat-header-content">
+
+
+            <div class="ai-icon">
+
+                <i class="bi bi-robot"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2 class="chat-title">
+
+                    College AI Assistant
+
+                </h2>
+
+                <p class="chat-subtitle">
+
+                    Ask anything about your college
+
+                </p>
+
+            </div>
+
+
+            <div class="ai-status">
+
+                <span class="status-dot"></span>
+
+                AI Online
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================
+         BODY
+    ============================= -->
+
+    <div class="chat-body">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <div class="welcome-icon">
+
+                <i class="bi bi-person-check-fill"></i>
+
+            </div>
+
+            <div>
+
+                Welcome back,
+
+                <b>{{ request.user.username }}</b>
+
+                👋
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CHAT FORM -->
+
+        <form
+            method="POST"
+            id="chatForm"
+            class="chat-form">
+
+            {% csrf_token %}
+
+
+            <input
+                type="text"
+                name="question"
+                id="questionInput"
+                class="chat-input"
+                placeholder="Ask your college question..."
+                autocomplete="off"
+                required>
+
+
+            <!-- MIC BUTTON -->
+            <button
+                type="button"
+                class="mic-button"
+                id="micButton"
+                title="Speak your question">
+
+                <i class="bi bi-mic-fill"></i>
+
+            </button>
+
+
+            <button
+                type="submit"
+                class="ask-btn"
+                id="askButton">
+
+                <i class="bi bi-send-fill"></i>
+
+                Ask AI
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- TYPING -->
+
+        <div id="typing" class="typing">
+
+            <div class="typing-dots">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+            AI is thinking...
+
+        </div>
+
+
+
+        <!-- ============================
+             AI RESPONSE
+        ============================= -->
+
+        {% if response %}
+
+        <div class="answer-card">
+
+
+            <div class="answer-header">
+
+                <div class="answer-icon">
+
+                    <i class="bi bi-stars"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h4 class="answer-title">
+
+                        AI Response
+
+                    </h4>
+
+                    <div class="answer-label">
+
+                        Generated by College AI Assistant
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="ai-response"
+                class="answer-content">
+
+            </div>
+
+
+        </div>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+        </script>
+
+
+        <script>
+
+        const responseText =
+            `{{ response|escapejs }}`;
+
+        document.getElementById(
+            "ai-response"
+        ).innerHTML =
+            marked.parse(responseText);
+
+
+        /* ================================
+           READ AI RESPONSE ALOUD
+        ================================ */
+
+        if(
+            responseText &&
+            "speechSynthesis" in window
+        ){
+
+            speechSynthesis.cancel();
+
+            const speech =
+                new SpeechSynthesisUtterance(
+                    responseText
+                );
+
+            speech.lang = "en-US";
+
+            speech.rate = 0.9;
+
+            speech.pitch = 1;
+
+            speech.volume = 1;
+
+            speechSynthesis.speak(speech);
+
+        }
+
+        </script>
+
+        {% endif %}
+
+
+
+        <!-- ============================
+             BUTTONS
+        ============================= -->
+
+        <div class="bottom-buttons">
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="bottom-btn dashboard-btn">
+
+                <i class="bi bi-grid-1x2-fill"></i>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="{% url 'chat_history' %}"
+                class="bottom-btn history-btn">
+
+                <i class="bi bi-clock-history"></i>
+
+                Chat History
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% else %}
+
+
+<!-- LOGIN REQUIRED -->
+
+<div class="login-box">
+
+
+    <div class="login-icon">
+
+        <i class="bi bi-lock-fill"></i>
+
+    </div>
+
+
+    <h2>
+
+        Login Required
+
+    </h2>
+
+
+    <p>
+
+        Please login to your student account
+        to use the AI College Assistant.
+
+    </p>
+
+
+    <a
+        href="{% url 'login' %}"
+        class="login-button">
+
+        <i class="bi bi-box-arrow-in-right"></i>
+
+        Login to Continue
+
+    </a>
+
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================================
+   CHAT JAVASCRIPT
+================================ */
+
+const form =
+    document.getElementById("chatForm");
+
+const typing =
+    document.getElementById("typing");
+
+const input =
+    document.getElementById("questionInput");
+
+const button =
+    document.getElementById("askButton");
+
+const micButton =
+    document.getElementById("micButton");
+
+
+/* ================================
+   VOICE INPUT
+================================ */
+
+if(micButton && input){
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(SpeechRecognition){
+
+        const recognition =
+            new SpeechRecognition();
+
+        recognition.lang = "en-US";
+
+        recognition.continuous = false;
+
+        recognition.interimResults = false;
+
+
+        micButton.addEventListener(
+            "click",
+            function(){
+
+                recognition.start();
+
+                micButton.classList.add(
+                    "listening"
+                );
+
+                micButton.innerHTML =
+                    '<i class="bi bi-mic-fill"></i>';
+
+            }
+        );
+
+
+        recognition.onresult =
+            function(event){
+
+                const transcript =
+                    event.results[0][0].transcript;
+
+                input.value = transcript;
+
+            };
+
+
+        recognition.onend =
+            function(){
+
+                micButton.classList.remove(
+                    "listening"
+                );
+
+                micButton.innerHTML =
+                    '<i class="bi bi-mic-fill"></i>';
+
+            };
+
+
+        recognition.onerror =
+            function(){
+
+                micButton.classList.remove(
+                    "listening"
+                );
+
+                micButton.innerHTML =
+                    '<i class="bi bi-mic-fill"></i>';
+
+            };
+
+    }
+
+    else{
+
+        micButton.disabled = true;
+
+        micButton.title =
+            "Voice input is not supported by this browser";
+
+    }
+
+}
+
+
+
+if(form){
+
+    form.addEventListener(
+        "submit",
+        function(){
+
+            typing.style.display =
+                "flex";
+
+            button.disabled = true;
+
+            button.innerHTML =
+                '<i class="bi bi-hourglass-split"></i> Thinking...';
+
+        }
+    );
+
+}
+
+
+/* ENTER KEY */
+
+if(input){
+
+    input.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter" &&
+                !event.shiftKey
+            ){
+
+                event.preventDefault();
+
+                form.requestSubmit();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* AUTO FOCUS */
+
+if(input){
+
+    input.focus();
+
+}
+
+</script>
+
+
+{% endblock %}

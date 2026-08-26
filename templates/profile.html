@@ -1,0 +1,688 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Profile | AI College Assistant
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.profile-page{
+    min-height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px 15px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(37,99,235,.15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(124,58,237,.15),
+            transparent 30%
+        );
+}
+
+
+/* PROFILE CARD */
+
+.profile-card{
+    width:100%;
+    max-width:650px;
+
+    background:rgba(255,255,255,.97);
+
+    border:1px solid #e5e7eb;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 60px
+        rgba(15,23,42,.15);
+
+    animation:profileIn .6s ease;
+}
+
+
+@keyframes profileIn{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* HEADER */
+
+.profile-header{
+
+    position:relative;
+
+    padding:38px 25px;
+
+    text-align:center;
+
+    color:white;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #2563eb,
+            #7c3aed
+        );
+}
+
+
+.profile-avatar{
+
+    width:85px;
+    height:85px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:38px;
+
+    color:white;
+
+    background:
+        rgba(255,255,255,.15);
+
+    border:
+        3px solid
+        rgba(255,255,255,.5);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.2);
+
+}
+
+
+.profile-name{
+
+    margin-top:15px;
+
+    margin-bottom:5px;
+
+    font-size:27px;
+
+    font-weight:800;
+}
+
+
+.profile-role{
+
+    margin:0;
+
+    color:#dbeafe;
+
+    font-size:13px;
+}
+
+
+.online-status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:13px;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+
+.status-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 8px #4ade80;
+
+}
+
+
+/* BODY */
+
+.profile-body{
+
+    padding:30px;
+}
+
+
+.profile-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+    margin-bottom:20px;
+}
+
+
+/* INFORMATION */
+
+.profile-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px;
+
+    margin-bottom:12px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
+
+    border:1px solid #eef2f7;
+
+    transition:.25s;
+}
+
+
+.profile-item:hover{
+
+    transform:translateX(4px);
+
+    border-color:#dbeafe;
+
+    background:#f1f5ff;
+}
+
+
+.profile-item-icon{
+
+    width:42px;
+    height:42px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    color:#2563eb;
+
+    background:#eff6ff;
+
+    font-size:18px;
+}
+
+
+.profile-label{
+
+    font-size:10px;
+
+    color:#94a3b8;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+}
+
+
+.profile-value{
+
+    margin-top:2px;
+
+    color:#1e293b;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    word-break:break-word;
+}
+
+
+/* BUTTONS */
+
+.profile-actions{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+
+.profile-btn{
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    border:none;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+
+.profile-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* DASHBOARD */
+
+.dashboard-btn{
+
+    color:#2563eb;
+
+    background:#eff6ff;
+}
+
+
+/* CHAT */
+
+.chat-btn{
+
+    color:#15803d;
+
+    background:#f0fdf4;
+}
+
+
+/* HISTORY */
+
+.history-btn{
+
+    color:#b45309;
+
+    background:#fffbeb;
+}
+
+
+/* LOGOUT */
+
+.logout-wrapper{
+
+    margin-top:12px;
+
+}
+
+
+.logout-btn{
+
+    width:100%;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(239,68,68,.2);
+
+    transition:.3s;
+}
+
+
+.logout-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(239,68,68,.3);
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .profile-body{
+
+        padding:22px 18px;
+
+    }
+
+    .profile-actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .profile-name{
+
+        font-size:23px;
+
+    }
+
+}
+
+</style>
+
+
+<div class="profile-page">
+
+
+    <div class="profile-card">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+
+            <div class="profile-avatar">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <h2 class="profile-name">
+
+                {{ request.user.username }}
+
+            </h2>
+
+
+            <p class="profile-role">
+
+                Student Account
+
+            </p>
+
+
+            <div class="online-status">
+
+                <span class="status-dot"></span>
+
+                Active Account
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PROFILE BODY -->
+
+        <div class="profile-body">
+
+
+            <div class="profile-title">
+
+                Account Information
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="profile-label">
+                        Username
+                    </div>
+
+                    <div class="profile-value">
+
+                        {{ request.user.username }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+
+                    <i class="bi bi-envelope"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="profile-label">
+                        Email Address
+                    </div>
+
+                    <div class="profile-value">
+
+                        {{ request.user.email|default:"Not provided" }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- JOIN DATE -->
+
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+
+                    <i class="bi bi-calendar-check"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="profile-label">
+                        Member Since
+                    </div>
+
+                    <div class="profile-value">
+
+                        {{ request.user.date_joined|date:"d M Y, h:i A" }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LAST LOGIN -->
+
+            <div class="profile-item">
+
+                <div class="profile-item-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+                <div>
+
+                    <div class="profile-label">
+                        Last Login
+                    </div>
+
+                    <div class="profile-value">
+
+                        {{ request.user.last_login|date:"d M Y, h:i A"|default:"First Login" }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="profile-actions">
+
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="profile-btn dashboard-btn">
+
+                    <i class="bi bi-grid-1x2-fill"></i>
+
+                    Dashboard
+
+                </a>
+
+
+                <a
+                    href="{% url 'chat' %}"
+                    class="profile-btn chat-btn">
+
+                    <i class="bi bi-robot"></i>
+
+                    My Chat
+
+                </a>
+
+
+                <a
+                    href="{% url 'chat_history' %}"
+                    class="profile-btn history-btn">
+
+                    <i class="bi bi-clock-history"></i>
+
+                    History
+
+                </a>
+
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <div class="logout-wrapper">
+
+                <form
+                    method="POST"
+                    action="{% url 'logout' %}">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="logout-btn">
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        Logout from Account
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

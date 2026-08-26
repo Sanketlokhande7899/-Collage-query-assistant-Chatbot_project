@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+404 - Page Not Found
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.error-container {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.error-card {
+    max-width: 650px;
+    width: 100%;
+    background: white;
+    padding: 50px 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+}
+
+.error-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    background: #fff0f0;
+    color: #dc3545;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 40px;
+}
+
+.error-number {
+    font-size: 110px;
+    font-weight: 800;
+    line-height: 1;
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.error-title {
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.error-text {
+    color: #6c757d;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.home-btn {
+    padding: 12px 25px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+</style>
+
+
+<div class="container error-container">
+
+    <div class="error-card">
+
+        <!-- Error Icon -->
+
+        <div class="error-icon">
+
+            <i class="bi bi-exclamation-triangle-fill"></i>
+
+        </div>
+
+
+        <!-- Error Number -->
+
+        <div class="error-number">
+            404
+        </div>
+
+
+        <!-- Error Message -->
+
+        <h3 class="error-title">
+            Page Not Found
+        </h3>
+
+        <p class="error-text">
+            Sorry! The page you requested does not exist
+            or may have been moved.
+        </p>
+
+
+        <!-- Home Button -->
+
+        <a href="/" class="btn btn-primary home-btn">
+
+            <i class="bi bi-house-fill"></i>
+            Go Home
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.users-container {
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.users-header {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.users-header h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.users-header p {
+    margin: 5px 0 0;
+    opacity: 0.9;
+}
+
+.table-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.users-table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.users-table thead {
+    background: #f1f5ff;
+}
+
+.users-table th {
+    color: #0d6efd;
+    font-weight: 700;
+    padding: 15px;
+}
+
+.users-table td {
+    padding: 15px;
+}
+
+.users-table tbody tr {
+    transition: 0.2s;
+}
+
+.users-table tbody tr:hover {
+    background-color: #f8f9ff;
+    transform: scale(1.002);
+}
+
+.user-id {
+    background: #e7f1ff;
+    color: #0d6efd;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.username {
+    font-weight: 600;
+    color: #212529;
+}
+
+.email {
+    color: #555;
+}
+
+.date-joined {
+    color: #666;
+    font-size: 14px;
+}
+
+.no-users {
+    text-align: center;
+    padding: 50px 20px !important;
+    color: #777;
+}
+
+.no-users-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+</style>
+
+
+<div class="container users-container">
+
+    <!-- Header -->
+
+    <div class="users-header">
+
+        <h2>
+            <i class="bi bi-people-fill"></i>
+            Users List
+        </h2>
+
+        <p>
+            View all registered users of the system.
+        </p>
+
+    </div>
+
+
+    <!-- Users Table -->
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered users-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="10%">
+                            ID
+                        </th>
+
+                        <th width="25%">
+                            Username
+                        </th>
+
+                        <th width="35%">
+                            Email
+                        </th>
+
+                        <th width="30%">
+                            Date Joined
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for user in users %}
+
+                    <tr>
+
+                        <td>
+
+                            <span class="user-id">
+                                #{{ user.id }}
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="username">
+                                <i class="bi bi-person-circle"></i>
+                                {{ user.username }}
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="email">
+                                <i class="bi bi-envelope"></i>
+                                {{ user.email }}
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="date-joined">
+                                <i class="bi bi-calendar3"></i>
+                                {{ user.date_joined|date:"d M Y, h:i A" }}
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4" class="no-users">
+
+                            <div class="no-users-icon">
+                                👥
+                            </div>
+
+                            <h5>No Users</h5>
+
+                            <p class="mb-0">
+                                No registered users found.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

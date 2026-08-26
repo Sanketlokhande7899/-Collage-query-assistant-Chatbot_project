@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register | AI College Assistant
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.register-page{
+    min-height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px 15px;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(37,99,235,.15),transparent 30%),
+        radial-gradient(circle at 90% 80%,rgba(124,58,237,.15),transparent 30%);
+}
+
+.register-card{
+    width:100%;
+    max-width:470px;
+    background:rgba(255,255,255,.95);
+    border:1px solid #e5e7eb;
+    border-radius:24px;
+    padding:35px;
+    box-shadow:0 20px 60px rgba(15,23,42,.15);
+    animation:cardIn .6s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.register-icon{
+    width:65px;
+    height:65px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:20px;
+    font-size:28px;
+    color:white;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    box-shadow:0 10px 25px rgba(37,99,235,.3);
+}
+
+.register-title{
+    text-align:center;
+    margin-top:18px;
+    font-size:27px;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.register-subtitle{
+    text-align:center;
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:#334155;
+    margin-bottom:7px;
+}
+
+.form-group input{
+    width:100%;
+    height:46px;
+    padding:0 14px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    background:#f8fafc;
+    outline:none;
+    transition:.25s;
+}
+
+.form-group input:focus{
+    background:white;
+    border-color:#4f46e5;
+    box-shadow:0 0 0 4px rgba(79,70,229,.1);
+}
+
+.register-btn{
+    width:100%;
+    height:48px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    font-weight:700;
+    font-size:14px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+    transition:.3s;
+}
+
+.register-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(37,99,235,.35);
+}
+
+.login-text{
+    text-align:center;
+    margin-top:20px;
+    font-size:13px;
+    color:#64748b;
+}
+
+.login-text a{
+    color:#2563eb;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.login-text a:hover{
+    color:#7c3aed;
+}
+
+.password-info{
+    font-size:11px;
+    color:#64748b;
+    margin-top:-7px;
+    margin-bottom:17px;
+}
+
+.alert{
+    font-size:12px;
+    border-radius:10px;
+}
+
+@media(max-width:500px){
+
+    .register-card{
+        padding:25px 20px;
+    }
+
+    .register-title{
+        font-size:23px;
+    }
+
+}
+
+</style>
+
+
+<div class="register-page">
+
+    <div class="register-card">
+
+        <div class="register-icon">
+            <i class="bi bi-person-plus-fill"></i>
+        </div>
+
+        <h2 class="register-title">
+            Create Account
+        </h2>
+
+        <p class="register-subtitle">
+            Join AI College Assistant
+        </p>
+
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label>
+                    <i class="bi bi-person"></i>
+                    Username
+                </label>
+
+                {{ form.username }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    <i class="bi bi-envelope"></i>
+                    Email
+                </label>
+
+                {{ form.email }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    <i class="bi bi-lock"></i>
+                    Password
+                </label>
+
+                {{ form.password1 }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    <i class="bi bi-shield-lock"></i>
+                    Confirm Password
+                </label>
+
+                {{ form.password2 }}
+
+            </div>
+
+
+            <div class="password-info">
+                🔒 Use 8+ characters with one uppercase & one symbol.
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-btn">
+
+                <i class="bi bi-person-plus-fill"></i>
+                Create Account
+
+            </button>
+
+        </form>
+
+
+        <div class="login-text">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+setTimeout(function(){
+
+    document.querySelectorAll(".alert").forEach(function(alert){
+
+        alert.style.transition = "opacity .5s";
+
+        alert.style.opacity = "0";
+
+        setTimeout(function(){
+            alert.remove();
+        },500);
+
+    });
+
+},3000);
+
+</script>
+
+{% endblock %}

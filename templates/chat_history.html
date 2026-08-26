@@ -1,0 +1,918 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Chat History | AI College Assistant
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ================================
+   PAGE
+================================ */
+
+.history-page{
+    min-height:85vh;
+    padding:30px 15px;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(37,99,235,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(124,58,237,.12),
+            transparent 30%
+        );
+}
+
+
+/* ================================
+   CONTAINER
+================================ */
+
+.history-container{
+    max-width:950px;
+    margin:auto;
+}
+
+
+/* ================================
+   TOP HEADER
+================================ */
+
+.history-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+
+    padding:22px 25px;
+
+    border-radius:20px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #2563eb,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(37,99,235,.18);
+
+    animation:historyIn .6s ease;
+}
+
+
+@keyframes historyIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+.history-heading{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+}
+
+
+.history-icon{
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    font-size:23px;
+
+    background:
+        rgba(255,255,255,.13);
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+}
+
+
+.history-title{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:800;
+}
+
+
+.history-subtitle{
+
+    margin:4px 0 0;
+
+    color:#dbeafe;
+
+    font-size:11px;
+}
+
+
+/* ================================
+   NEW CHAT BUTTON
+================================ */
+
+.new-chat-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:10px 16px;
+
+    border-radius:11px;
+
+    color:#2563eb;
+
+    background:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+
+.new-chat-btn:hover{
+
+    transform:translateY(-2px);
+
+    color:#1d4ed8;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.15);
+}
+
+
+/* ================================
+   CHAT CARD
+================================ */
+
+.chat-card{
+
+    background:
+        rgba(255,255,255,.97);
+
+    border:
+        1px solid
+        #e5e7eb;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    margin-bottom:18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(15,23,42,.08);
+
+    transition:.3s;
+
+    animation:cardIn .5s ease;
+}
+
+
+.chat-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(15,23,42,.12);
+}
+
+
+@keyframes cardIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* ================================
+   DATE
+================================ */
+
+.date{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-bottom:15px;
+
+    color:#94a3b8;
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+
+/* ================================
+   MESSAGE BOX
+================================ */
+
+.message-box{
+
+    padding:16px;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+    border:1px solid;
+}
+
+
+.question{
+
+    background:#eff6ff;
+
+    border-color:#dbeafe;
+
+    border-left:
+        4px solid
+        #2563eb;
+}
+
+
+.answer{
+
+    background:#f0fdf4;
+
+    border-color:#dcfce7;
+
+    border-left:
+        4px solid
+        #16a34a;
+}
+
+
+/* ================================
+   MESSAGE HEADER
+================================ */
+
+.message-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:8px;
+}
+
+
+.message-icon{
+
+    width:30px;
+    height:30px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    font-size:13px;
+}
+
+
+.question .message-icon{
+
+    color:#2563eb;
+
+    background:#dbeafe;
+}
+
+
+.answer .message-icon{
+
+    color:#15803d;
+
+    background:#dcfce7;
+}
+
+
+.message-title{
+
+    margin:0;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+.question .message-title{
+
+    color:#1d4ed8;
+}
+
+
+.answer .message-title{
+
+    color:#15803d;
+}
+
+
+/* ================================
+   MESSAGE TEXT
+================================ */
+
+.message-text{
+
+    margin:0;
+
+    color:#334155;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+}
+
+
+/* ================================
+   EMPTY HISTORY
+================================ */
+
+.empty-history{
+
+    padding:55px 25px;
+
+    text-align:center;
+
+    background:white;
+
+    border-radius:20px;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+        0 10px 30px
+        rgba(15,23,42,.08);
+
+    animation:historyIn .6s ease;
+}
+
+
+.empty-icon{
+
+    width:70px;
+    height:70px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    color:#2563eb;
+
+    background:#eff6ff;
+
+    font-size:30px;
+}
+
+
+.empty-history h4{
+
+    margin-top:18px;
+
+    color:#0f172a;
+
+    font-weight:800;
+}
+
+
+.empty-history p{
+
+    color:#64748b;
+
+    font-size:12px;
+
+    margin-bottom:20px;
+}
+
+
+.start-chat-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:11px 20px;
+
+    border-radius:11px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    transition:.25s;
+}
+
+
+.start-chat-btn:hover{
+
+    transform:translateY(-2px);
+
+    color:white;
+}
+
+
+/* ================================
+   BOTTOM ACTIONS
+================================ */
+
+.bottom-actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:28px;
+}
+
+
+.action-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    height:42px;
+
+    padding:0 16px;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    transition:.25s;
+}
+
+
+.action-btn:hover{
+
+    transform:translateY(-2px);
+}
+
+
+.dashboard-btn{
+
+    color:#2563eb;
+
+    background:#eff6ff;
+}
+
+
+.chat-btn{
+
+    color:#15803d;
+
+    background:#f0fdf4;
+}
+
+
+.profile-btn{
+
+    color:#7c3aed;
+
+    background:#f5f3ff;
+}
+
+
+/* LOGOUT */
+
+.logout-btn{
+
+    color:#dc2626;
+
+    background:#fef2f2;
+
+    border:none;
+}
+
+
+.logout-btn:hover{
+
+    color:#b91c1c;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+    .history-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+    .new-chat-btn{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .history-title{
+
+        font-size:19px;
+
+    }
+
+    .chat-card{
+
+        padding:16px;
+
+    }
+
+    .bottom-actions{
+
+        flex-direction:column;
+
+    }
+
+    .action-btn{
+
+        justify-content:center;
+
+        width:100%;
+
+    }
+
+}
+
+</style>
+
+
+<div class="history-page">
+
+
+<div class="history-container">
+
+
+    <!-- ============================
+         HEADER
+    ============================= -->
+
+    <div class="history-header">
+
+
+        <div class="history-heading">
+
+
+            <div class="history-icon">
+
+                <i class="bi bi-clock-history"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2 class="history-title">
+
+                    My Chat History
+
+                </h2>
+
+                <p class="history-subtitle">
+
+                    View your previous conversations with AI
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <a
+            href="{% url 'chat' %}"
+            class="new-chat-btn">
+
+            <i class="bi bi-plus-lg"></i>
+
+            New Chat
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- ============================
+         CHAT HISTORY
+    ============================= -->
+
+    {% for chat in chats %}
+
+
+    <div class="chat-card">
+
+
+        <!-- DATE -->
+
+        <div class="date">
+
+            <i class="bi bi-calendar3"></i>
+
+            {{ chat.created_at|date:"d M Y, h:i A" }}
+
+        </div>
+
+
+
+        <!-- QUESTION -->
+
+        <div class="message-box question">
+
+
+            <div class="message-header">
+
+
+                <div class="message-icon">
+
+                    <i class="bi bi-person-fill"></i>
+
+                </div>
+
+
+                <h5 class="message-title">
+
+                    You
+
+                </h5>
+
+
+            </div>
+
+
+            <p class="message-text">
+
+                {{ chat.user_message }}
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- AI ANSWER -->
+
+        <div class="message-box answer">
+
+
+            <div class="message-header">
+
+
+                <div class="message-icon">
+
+                    <i class="bi bi-robot"></i>
+
+                </div>
+
+
+                <h5 class="message-title">
+
+                    AI College Assistant
+
+                </h5>
+
+
+            </div>
+
+
+            <p class="message-text">
+
+                {{ chat.bot_response }}
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+    {% empty %}
+
+
+    <!-- ============================
+         EMPTY STATE
+    ============================= -->
+
+    <div class="empty-history">
+
+
+        <div class="empty-icon">
+
+            <i class="bi bi-chat-square-text"></i>
+
+        </div>
+
+
+        <h4>
+
+            No Chat History Yet
+
+        </h4>
+
+
+        <p>
+
+            You haven't asked any questions yet.
+            Start a conversation with your AI College Assistant.
+
+        </p>
+
+
+        <a
+            href="{% url 'chat' %}"
+            class="start-chat-btn">
+
+            <i class="bi bi-robot"></i>
+
+            Start Chat
+
+        </a>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+
+    <!-- ============================
+         BOTTOM ACTIONS
+    ============================= -->
+
+    <div class="bottom-actions">
+
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="action-btn dashboard-btn">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+
+            Dashboard
+
+        </a>
+
+
+        <a
+            href="{% url 'chat' %}"
+            class="action-btn chat-btn">
+
+            <i class="bi bi-plus-circle"></i>
+
+            New Chat
+
+        </a>
+
+
+        <a
+            href="{% url 'profile' %}"
+            class="action-btn profile-btn">
+
+            <i class="bi bi-person-fill"></i>
+
+            My Profile
+
+        </a>
+
+
+        <form
+            method="POST"
+            action="{% url 'logout' %}"
+            style="display:inline;">
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="action-btn logout-btn">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Logout
+
+            </button>
+
+        </form>
+
+
+    </div>
+
+
+</div>
+
+</div>
+
+{% endblock %}

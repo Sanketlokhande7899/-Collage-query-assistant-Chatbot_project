@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% block title %}
+FAQ Management
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.faq-page {
+    max-width: 1150px;
+    margin: 40px auto;
+}
+
+.faq-top {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 28px 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow: 0 8px 25px rgba(217,119,6,0.20);
+}
+
+.faq-top h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.faq-top p {
+    margin: 6px 0 0;
+    opacity: 0.9;
+}
+
+.add-faq-btn {
+    background: white;
+    color: #d97706;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 9px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.add-faq-btn:hover {
+    background: #fff7ed;
+    color: #b45309;
+    transform: translateY(-2px);
+}
+
+.faq-table-card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+}
+
+.faq-table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.faq-table thead {
+    background: #fff7ed;
+}
+
+.faq-table th {
+    color: #b45309;
+    font-weight: 700;
+    padding: 15px;
+    border-bottom: 2px solid #f59e0b;
+}
+
+.faq-table td {
+    padding: 16px 15px;
+}
+
+.faq-table tbody tr {
+    transition: 0.2s;
+}
+
+.faq-table tbody tr:hover {
+    background: #fffbf5;
+}
+
+.faq-id {
+    background: #fff7ed;
+    color: #d97706;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.faq-question {
+    font-weight: 600;
+    color: #212529;
+}
+
+.faq-category {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.empty-faq {
+    text-align: center;
+    padding: 50px 20px !important;
+    color: #777;
+}
+
+.empty-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+
+    .faq-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-faq-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+
+<div class="container faq-page">
+
+    <!-- Header -->
+
+    <div class="faq-top">
+
+        <div>
+
+            <h2>
+                <i class="bi bi-question-circle-fill"></i>
+                Manage FAQs
+            </h2>
+
+            <p>
+                Manage frequently asked questions and categories.
+            </p>
+
+        </div>
+
+
+        <a href="#" class="add-faq-btn">
+
+            <i class="bi bi-plus-circle-fill"></i>
+            Add FAQ
+
+        </a>
+
+    </div>
+
+
+    <!-- FAQ Table -->
+
+    <div class="faq-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered faq-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="10%">
+                            ID
+                        </th>
+
+                        <th width="60%">
+                            Question
+                        </th>
+
+                        <th width="30%">
+                            Category
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for faq in faqs %}
+
+                    <tr>
+
+                        <td>
+
+                            <span class="faq-id">
+                                #{{ faq.id }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="faq-question">
+
+                                <i class="bi bi-chat-left-text"></i>
+                                {{ faq.question }}
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="faq-category">
+
+                                <i class="bi bi-folder-fill"></i>
+                                {{ faq.category }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="empty-faq">
+
+                            <div class="empty-icon">
+                                ❓
+                            </div>
+
+                            <h5>No FAQs Found</h5>
+
+                            <p class="mb-0">
+                                There are no FAQs available yet.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

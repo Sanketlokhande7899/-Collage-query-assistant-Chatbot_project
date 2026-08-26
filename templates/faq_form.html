@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}
+FAQ Form
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.faq-container {
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+.faq-header {
+    background: linear-gradient(135deg, #198754, #20c997);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.faq-header h3 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.faq-header p {
+    margin: 6px 0 0;
+    opacity: 0.9;
+}
+
+.faq-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.faq-body {
+    padding: 30px;
+}
+
+.form-area p {
+    margin-bottom: 20px;
+}
+
+.form-area label {
+    display: block;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 7px;
+}
+
+.form-area input,
+.form-area textarea,
+.form-area select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.form-area input:focus,
+.form-area textarea:focus,
+.form-area select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25,135,84,0.15);
+    outline: none;
+}
+
+.form-area textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.errorlist {
+    color: #dc3545;
+    font-size: 14px;
+    margin: 5px 0;
+    padding-left: 18px;
+}
+
+.button-area {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.save-btn {
+    padding: 11px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+</style>
+
+
+<div class="container faq-container">
+
+    <div class="faq-card">
+
+        <!-- Header -->
+
+        <div class="faq-header">
+
+            <h3>
+                <i class="bi bi-question-circle-fill"></i>
+                Add / Update FAQ
+            </h3>
+
+            <p>
+                Create or update frequently asked questions.
+            </p>
+
+        </div>
+
+
+        <!-- Form -->
+
+        <div class="faq-body">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-area">
+
+                    {{ form.as_p }}
+
+                </div>
+
+
+                <div class="button-area">
+
+                    <button type="submit"
+                            class="btn btn-success save-btn">
+
+                        <i class="bi bi-check-circle"></i>
+                        Save FAQ
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}
+FAQ Management
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.faq-management-container {
+    max-width: 1200px;
+    margin: 35px auto;
+}
+
+.faq-header {
+    background: linear-gradient(135deg, #198754, #20c997);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.faq-header h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.faq-header p {
+    margin: 5px 0 0;
+    opacity: 0.9;
+}
+
+.add-faq-btn {
+    background: white;
+    color: #198754;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.add-faq-btn:hover {
+    background: #f1f1f1;
+    color: #146c43;
+    transform: translateY(-1px);
+}
+
+.faq-table-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.faq-table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.faq-table thead {
+    background: #e9f7ef;
+}
+
+.faq-table th {
+    color: #198754;
+    font-weight: 700;
+    padding: 15px;
+    border-bottom: 2px solid #198754;
+}
+
+.faq-table td {
+    padding: 15px;
+}
+
+.faq-table tbody tr {
+    transition: 0.2s;
+}
+
+.faq-table tbody tr:hover {
+    background-color: #f8fffb;
+}
+
+.faq-id {
+    background: #e9f7ef;
+    color: #198754;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.question {
+    font-weight: 600;
+    color: #212529;
+    min-width: 250px;
+}
+
+.intent {
+    background: #f1f3f5;
+    color: #495057;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.answer {
+    color: #555;
+    line-height: 1.5;
+    min-width: 300px;
+}
+
+.no-faq {
+    text-align: center;
+    padding: 50px 20px !important;
+    color: #777;
+}
+
+.no-faq-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+
+    .faq-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-faq-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+
+<div class="container faq-management-container">
+
+    <!-- Header -->
+
+    <div class="faq-header">
+
+        <div>
+
+            <h2>
+                <i class="bi bi-question-circle-fill"></i>
+                FAQ Management
+            </h2>
+
+            <p>
+                Manage frequently asked questions and answers.
+            </p>
+
+        </div>
+
+
+        <a href="{% url 'faq_form' %}" class="add-faq-btn">
+
+            <i class="bi bi-plus-circle"></i>
+            Add New FAQ
+
+        </a>
+
+    </div>
+
+
+    <!-- FAQ Table -->
+
+    <div class="faq-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered faq-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="8%">
+                            ID
+                        </th>
+
+                        <th width="30%">
+                            Question
+                        </th>
+
+                        <th width="17%">
+                            Intent
+                        </th>
+
+                        <th width="45%">
+                            Answer
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for faq in faqs %}
+
+                    <tr>
+
+                        <td>
+
+                            <span class="faq-id">
+                                #{{ faq.id }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="question">
+                                {{ faq.question }}
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="intent">
+                                {{ faq.intent }}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="answer">
+                                {{ faq.answer }}
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="4" class="no-faq">
+
+                            <div class="no-faq-icon">
+                                ❓
+                            </div>
+
+                            <h5>No FAQ Found</h5>
+
+                            <p class="mb-0">
+                                There are no FAQs available yet.
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
