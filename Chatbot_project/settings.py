@@ -25,12 +25,10 @@ SECRET_KEY = 'django-insecure-b^-3go-8@%wj=ykhk%_t5!qlbly-(91m$1l0b^4p658=flmjw7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1",
+ALLOWED_HOSTS = [
+    "collage-query-assistant-chatbot-project.onrender.com",
     "localhost",
-    ".trycloudflare.com",]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.trycloudflare.com",
+    "127.0.0.1",
 ]
 
 
